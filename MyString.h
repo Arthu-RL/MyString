@@ -14,6 +14,7 @@ public:
 	MyString(MyString &&src);
 	~MyString();
 
+	MyString &operator=(const char* str);
 	MyString &operator=(const MyString &src);
 	MyString &operator=(MyString &&src);
 	bool operator==(MyString &rhs);

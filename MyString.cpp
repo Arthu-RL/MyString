@@ -2,6 +2,15 @@
 #include "MyString.h"
 #include "StringMethods.cpp"
 
+MyString &MyString::operator=(const char* str)
+{
+	// std::cout << "Copy operator" << '\n';
+	delete[] _str;
+	_str = new char[clen(str) + 1];
+	strcopy(_str, str);
+	return *this;
+}
+
 MyString &MyString::operator=(const MyString &src)
 {
 	// std::cout << "Copy operator" << '\n';
