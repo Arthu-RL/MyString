@@ -1,13 +1,15 @@
 #include <iostream>
+
 #include "MyString.h"
 #include "StringMethods.cpp"
+
 
 MyString &MyString::operator=(const char* str)
 {
 	// std::cout << "Copy operator" << '\n';
 	delete[] _str;
-	_str = new char[clen(str) + 1];
-	strcopy(_str, str);
+	_str = new char[str_methods::clen(str) + 1];
+	str_methods::strcopy(_str, str);
 	return *this;
 }
 
@@ -19,8 +21,8 @@ MyString &MyString::operator=(const MyString &src)
 		return *this;
 	}
 	delete[] _str;
-	_str = new char[clen(src._str) + 1];
-	strcopy(_str, src._str);
+	_str = new char[str_methods::clen(src._str) + 1];
+	str_methods::strcopy(_str, src._str);
 	return *this;
 }
 
@@ -39,16 +41,16 @@ MyString &MyString::operator=(MyString &&src)
 
 bool MyString::operator==(MyString &rhs)
 {
-	return strcmp(_str, rhs._str);
+	return str_methods::strcmp(_str, rhs._str);
 }
 
 MyString MyString::operator-(const MyString &obj)
 {
 	// std::cout << "Minus operator" << '\n';
-	char *buff = new char[clen(obj._str) + 1];
-	strcopy(buff, obj._str);
+	char *buff = new char[str_methods::clen(obj._str) + 1];
+	str_methods::strcopy(buff, obj._str);
 
-	for (size_t i = 0; i < clen(buff); i++)
+	for (size_t i = 0; i < str_methods::clen(buff); i++)
 	{
 		buff[i] = std::tolower(buff[i]);
 	}
@@ -61,10 +63,10 @@ MyString MyString::operator-(const MyString &obj)
 MyString MyString::operator+(MyString &rhs)
 {
 	// std::cout << "Plus operator" << '\n';
-	char *buff = new char[clen(_str) + clen(rhs._str) + 1];
+	char *buff = new char[str_methods::clen(_str) + str_methods::clen(rhs._str) + 1];
 
-	strcopy(buff, _str);
-	char *result = cconcat(buff, rhs._str);
+	str_methods::strcopy(buff, _str);
+	char *result = str_methods::cconcat(buff, rhs._str);
 
 	MyString temp{result};
 	return temp;
@@ -92,15 +94,15 @@ MyString::MyString(const char *s) : _str{nullptr}
 	}
 	else
 	{
-		_str = new char[clen(s) + 1];
-		strcopy(_str, s);
+		_str = new char[str_methods::clen(s) + 1];
+		str_methods::strcopy(_str, s);
 	}
 }
 
 MyString::MyString(const MyString &src) : _str{nullptr}
 {
-	_str = new char[clen(src._str) + 1];
-	strcopy(_str, src._str);
+	_str = new char[str_methods::clen(src._str) + 1];
+	str_methods::strcopy(_str, src._str);
 	// std::cout << "Copy constructor" << '\n';
 }
 
@@ -125,7 +127,7 @@ MyString::~MyString()
 
 int MyString::get_length()
 {
-	return clen(_str);
+	return str_methods::clen(_str);
 }
 
 void MyString::display()
