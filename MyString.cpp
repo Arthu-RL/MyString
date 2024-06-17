@@ -69,6 +69,8 @@ MyString MyString::operator+(MyString &rhs)
 	char *result = str_methods::cconcat(buff, rhs._str);
 
 	MyString temp{result};
+	delete[] buff;
+	delete[] result;
 	return temp;
 }
 
